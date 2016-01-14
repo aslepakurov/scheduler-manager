@@ -6,13 +6,13 @@ package ua.kpi.comsys.manager.domain.rest;
  * @author aslepakurov
  * @version 1/14/2016
  */
-public class TaskRequestRestResponse {
+public class TaskRestResponse {
     private String text;
 
-    public TaskRequestRestResponse() {
+    public TaskRestResponse() {
     }
 
-    public TaskRequestRestResponse(String text) {
+    public TaskRestResponse(String text) {
         this.text = text;
     }
 

@@ -1,4 +1,4 @@
-package ua.kpi.comsys.manager;
+package ua.kpi.comsys.manager.configuration;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;

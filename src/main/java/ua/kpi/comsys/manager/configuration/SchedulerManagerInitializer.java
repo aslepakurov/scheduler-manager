@@ -1,4 +1,4 @@
-package ua.kpi.comsys.manager;
+package ua.kpi.comsys.manager.configuration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;

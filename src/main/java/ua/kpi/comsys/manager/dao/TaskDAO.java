@@ -1,6 +1,6 @@
 package ua.kpi.comsys.manager.dao;
 
-import ua.kpi.comsys.manager.domain.TaskRequest;
+import ua.kpi.comsys.manager.domain.Task;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -17,32 +17,32 @@ import java.util.UUID;
  * @version 1/14/2016
  */
 @Component
-public class TaskRequestDAO implements ITaskRequestDAO {
-    private static final Logger LOGGER = Logger.getLogger(TaskRequestDAO.class);
+public class TaskDAO implements ITaskDAO {
+    private static final Logger LOGGER = Logger.getLogger(TaskDAO.class);
 
     @Autowired
     private MongoOperations mongoOperations;
 
     @Override
-    public String create(TaskRequest entity) {
+    public String create(Task entity) {
         if (!collectionExist()) {
             LOGGER.info("Created collection for TaskRequest.class");
-            mongoOperations.createCollection(TaskRequest.class);
+            mongoOperations.createCollection(Task.class);
         }
         String id = UUID.randomUUID().toString();
         entity.setId(id);
         mongoOperations.save(entity);
-        LOGGER.info(String.format("Saved entity with text=%s...", entity.getText()));
+        LOGGER.info(String.format("Saved entity with text=%s...", entity.getId()));
         return id;
     }
 
     @Override
-    public TaskRequest get(String id) {
+    public Task get(String id) {
         Query query = new Query(Criteria.where("id").is(id));
-        return mongoOperations.findOne(query, TaskRequest.class);
+        return mongoOperations.findOne(query, Task.class);
     }
 
     private boolean collectionExist() {
-        return mongoOperations.collectionExists(TaskRequest.class);
+        return mongoOperations.collectionExists(Task.class);
     }
 }

@@ -1,7 +1,7 @@
 package ua.kpi.comsys.manager.service;
 
-import ua.kpi.comsys.manager.domain.TaskRequest;
-import ua.kpi.comsys.manager.dao.TaskRequestDAO;
+import ua.kpi.comsys.manager.domain.Task;
+import ua.kpi.comsys.manager.dao.TaskDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Component;
  * @version 1/14/2016
  */
 @Component
-public class TaskRequestService implements ITaskRequestService {
+public class TaskService implements ITaskService {
 
     @Autowired
-    private TaskRequestDAO dao;
+    private TaskDAO dao;
 
-    public String create(TaskRequest entity) {
+    public String create(Task entity) {
         return dao.create(entity);
     }
 
-    public TaskRequest get(String id) {
+    public Task get(String id) {
         return dao.get(id);
     }
 }
