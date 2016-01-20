@@ -21,4 +21,13 @@ public enum TaskConfigurationType {
     public String getName() {
         return name;
     }
+
+    public static TaskConfigurationType getType(String type) {
+        for (TaskConfigurationType taskConfigurationType : values()) {
+            if (taskConfigurationType.getName().equalsIgnoreCase(type)) {
+                return taskConfigurationType;
+            }
+        }
+        return null;
+    }
 }

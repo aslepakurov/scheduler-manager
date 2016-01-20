@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
+import ua.kpi.comsys.manager.domain.dto.TastRequestDto;
 
 import java.util.UUID;
 
@@ -24,16 +25,17 @@ public class TaskDAO implements ITaskDAO {
     private MongoOperations mongoOperations;
 
     @Override
-    public String create(Task entity) {
+    public Task create(TastRequestDto taskDto) {
         if (!collectionExist()) {
-            LOGGER.info("Created collection for TaskRequest.class");
+            LOGGER.info("Created collection for Task.class");
             mongoOperations.createCollection(Task.class);
         }
         String id = UUID.randomUUID().toString();
-        entity.setId(id);
-        mongoOperations.save(entity);
-        LOGGER.info(String.format("Saved entity with text=%s...", entity.getId()));
-        return id;
+        Task task = Task.from(taskDto);
+        task.setId(id);
+        mongoOperations.save(task);
+        LOGGER.info(String.format("Saved task with text=%s...", task.getId()));
+        return task;
     }
 
     @Override
