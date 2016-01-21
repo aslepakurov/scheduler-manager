@@ -95,6 +95,11 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.12</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
+            <version>1.5.3.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>

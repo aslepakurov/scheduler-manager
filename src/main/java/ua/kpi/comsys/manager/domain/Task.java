@@ -1,7 +1,5 @@
 package ua.kpi.comsys.manager.domain;
 
-import ua.kpi.comsys.manager.domain.dto.TastRequestDto;
-
 import java.time.LocalDateTime;
 
 /**
@@ -113,55 +111,5 @@ public class Task {
 
     public void setType(TaskConfigurationType type) {
         this.type = type;
-    }
-
-    public static Task from(TastRequestDto taskDto) {
-        Task task = new Task();
-        TaskConfiguration configuration = new TaskConfiguration();
-
-        String taskName = taskDto.getName();
-        String taskDescription = taskDto.getDescription();
-        int taskGpu = taskDto.getGpu();
-        int taskNodes = taskDto.getNodes();
-        int taskCores = taskDto.getCores();
-        int taskSimulTasks = taskDto.getTasks();
-        String taskAccount = taskDto.getAccount();
-        String taskEmail = taskDto.getEmail();
-        String taskLogFilePath = taskDto.getLogFilePath();
-        String taskErrorFilePath = taskDto.getErrorFilePath();
-        String taskPreRunScript = taskDto.getPreRunScript();
-        String taskPostRunScript = taskDto.getPostRunScript();
-        String taskRequestType = taskDto.getRequestType();
-        int tasksPerNode = taskDto.getTasksPerNode();
-        String taskWalltime = taskDto.getWalltime();
-        boolean taskAbortedEmail = taskDto.isAbortedEmail();
-        boolean taskBeginEmail = taskDto.isBeginEmail();
-        boolean taskEndEmail = taskDto.isEndEmail();
-        boolean taskExclusive = taskDto.isExclusive();
-
-        configuration.setAccount(taskAccount);
-        configuration.setCores(taskCores);
-        configuration.setGpu(taskGpu);
-        configuration.setErrorFilePath(taskErrorFilePath);
-        configuration.setGpu(taskGpu);
-        configuration.setLogFilePath(taskLogFilePath);
-        configuration.setTasksPerNode(tasksPerNode);
-        configuration.setTasks(taskSimulTasks);
-        configuration.setEmail(taskEmail);
-        configuration.setWalltime(taskWalltime);
-        configuration.setAbortedEmail(taskAbortedEmail);
-        configuration.setBeginEmail(taskBeginEmail);
-        configuration.setEndEmail(taskEndEmail);
-        configuration.setExclusive(taskExclusive);
-        configuration.setNodes(taskNodes);
-
-        task.setName(taskName);
-        task.setDescription(taskDescription);
-        task.setPreRunScript(taskPreRunScript);
-        task.setPostRunScript(taskPostRunScript);
-        task.setType(TaskConfigurationType.getType(taskRequestType));
-        task.setConfiguration(configuration);
-
-        return task;
     }
 }

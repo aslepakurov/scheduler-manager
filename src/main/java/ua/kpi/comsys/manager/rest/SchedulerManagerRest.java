@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/task")
 public class SchedulerManagerRest {
-    private static final Logger LOGGER = Logger.getLogger(SchedulerManagerRest.class);
-
     @Autowired
     private ITaskService taskService;
 
@@ -32,8 +30,13 @@ public class SchedulerManagerRest {
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Task> get(@PathVariable("id") String id) {
-        Task entity = taskService.get(id);
-        return ResponseEntity.ok(entity);
+        Task task = taskService.get(id);
+        return ResponseEntity.ok(task);
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity<String> delete(@PathVariable("id") String id) {
+        return ResponseEntity.ok(taskService.delete(id));
+    }
 }
