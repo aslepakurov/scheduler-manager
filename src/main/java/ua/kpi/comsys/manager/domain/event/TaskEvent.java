@@ -1,12 +1,14 @@
 package ua.kpi.comsys.manager.domain.event;
 
+import java.io.Serializable;
+
 /**
  * TaskEvent Class
  *
  * @author aslepakurov
  * @version 01/21/2016
  */
-public class TaskEvent {
+public class TaskEvent implements Serializable {
     private String id;
 
     public TaskEvent() {

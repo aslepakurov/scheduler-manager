@@ -1,5 +1,7 @@
 package ua.kpi.comsys.manager.service;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.transaction.annotation.Transactional;
 import ua.kpi.comsys.manager.dao.ITaskDAO;
 import ua.kpi.comsys.manager.domain.Task;
@@ -8,9 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.kpi.comsys.manager.domain.TaskStatus;
 import ua.kpi.comsys.manager.domain.dto.TastRequestDto;
+import ua.kpi.comsys.manager.domain.event.TaskEvent;
 
 /**
- * ExampleService Class
+ * TaskService Class
  *
  * @author aslepakurov
  * @version 1/14/2016
@@ -21,10 +24,14 @@ public class TaskService implements ITaskService {
 
     @Autowired
     private ITaskDAO dao;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     public Task create(TastRequestDto taskDto) {
         Task task = TastRequestDto.from(taskDto);
-        return dao.create(task);
+        task = dao.create(task);
+        rabbitTemplate.convertAndSend("taskQueue", new TaskEvent(task.getId()));
+        return task;
     }
 
     public Task get(String id) {

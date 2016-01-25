@@ -5,7 +5,7 @@ import ua.kpi.comsys.manager.domain.TaskStatus;
 import ua.kpi.comsys.manager.domain.dto.TastRequestDto;
 
 /**
- * IExampleService Class
+ * ITaskService Class
  *
  * @author aslepakurov
  * @version 1/14/2016

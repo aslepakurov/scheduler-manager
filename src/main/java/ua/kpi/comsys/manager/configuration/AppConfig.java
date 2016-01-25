@@ -4,14 +4,16 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import org.apache.log4j.Logger;
 import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import ua.kpi.comsys.manager.listener.TaskQueueListener;
 
 import java.net.UnknownHostException;
 import java.util.ResourceBundle;
@@ -50,13 +53,14 @@ public class AppConfig implements InitializingBean{
         LOGGER.info(String.format("Database connection (host: %s, scheme:%s)", dbHost, dbScheme));
     }
 
-    public @Bean
-    MongoClient mongo() throws UnknownHostException {
+    @Bean
+    public MongoClient mongo() throws UnknownHostException {
         MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(200).build();
         return new MongoClient(dbHost, options);
     }
 
-    public @Bean MongoOperations mongoOperations() throws UnknownHostException {
+    @Bean
+    public MongoOperations mongoOperations() throws UnknownHostException {
         return new MongoTemplate(mongo(), dbScheme);
     }
 
@@ -78,6 +82,14 @@ public class AppConfig implements InitializingBean{
     @Bean
     public Queue taskQueue() {
         return new Queue("taskQueue");
+    }
+
+    @Bean
+    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory());
+        factory.setConcurrentConsumers(3);
+        return factory;
     }
 
     @Bean
