@@ -1,4 +1,4 @@
-package ua.kpi.comsys.manager.configuration;
+package ua.kpi.comsys.manager.configuration.web;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
