@@ -1,5 +1,6 @@
 package ua.kpi.comsys.manager.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -8,13 +9,13 @@ import java.time.LocalDateTime;
  * @author aslepakurov
  * @version 1/14/2016
  */
-public class Task {
+public class Task implements Serializable {
     private String id;
     private String name;
     private String description;
     private TaskConfiguration configuration;
-    private LocalDateTime creationDate;
-    private LocalDateTime completeDate;
+//    private LocalDateTime creationDate;
+//    private LocalDateTime completeDate;
     private TaskStatus status;
     private String preRunScript;
     private String postRunScript;
@@ -27,7 +28,7 @@ public class Task {
         this.name = name;
         this.description = description;
         this.configuration = configuration;
-        this.creationDate = LocalDateTime.now();
+//        this.creationDate = LocalDateTime.now();
         this.status = TaskStatus.SUBMITED;
         this.preRunScript = preRunScript;
         this.postRunScript = postRunScript;
@@ -65,21 +66,21 @@ public class Task {
         this.configuration = configuration;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
+//    public LocalDateTime getCreationDate() {
+//        return creationDate;
+//    }
 
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
+//    public void setCreationDate(LocalDateTime creationDate) {
+//        this.creationDate = creationDate;
+//    }
 
-    public LocalDateTime getCompleteDate() {
-        return completeDate;
-    }
+//    public LocalDateTime getCompleteDate() {
+//        return completeDate;
+//    }
 
-    public void setCompleteDate(LocalDateTime completeDate) {
-        this.completeDate = completeDate;
-    }
+//    public void setCompleteDate(LocalDateTime completeDate) {
+//        this.completeDate = completeDate;
+//    }
 
     public TaskStatus getStatus() {
         return status;

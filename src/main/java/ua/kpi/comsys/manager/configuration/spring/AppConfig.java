@@ -42,7 +42,7 @@ public class AppConfig {
 
     @Bean
     public Queue taskQueue() {
-        return new Queue("taskQueue");
+        return  new Queue("taskQueue",true, false, false);
     }
 
     @Bean

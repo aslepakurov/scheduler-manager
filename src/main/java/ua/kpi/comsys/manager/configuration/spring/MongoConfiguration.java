@@ -8,13 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
-import org.springframework.data.mongodb.core.convert.CustomConversions;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import ua.kpi.comsys.manager.configuration.converter.LocalDateTimeToStringConverter;
-import ua.kpi.comsys.manager.configuration.converter.StringToLocalDateTimeConverter;
 
 import java.net.UnknownHostException;
-import java.util.Arrays;
 
 /**
  * MongoConfiguration Class
@@ -49,13 +45,4 @@ public class MongoConfiguration extends AbstractMongoConfiguration implements In
         MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(200).build();
         return new MongoClient(dbHost, options);
     }
-
-    @Override
-    public CustomConversions customConversions() {
-        return new CustomConversions(
-                Arrays.asList(new LocalDateTimeToStringConverter(),
-                        new StringToLocalDateTimeConverter()));
-    }
-
-
 }

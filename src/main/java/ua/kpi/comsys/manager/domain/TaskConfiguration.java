@@ -1,12 +1,14 @@
 package ua.kpi.comsys.manager.domain;
 
+import java.io.Serializable;
+
 /**
  * TaskConfiguration Class
  *
  * @author aslepakurov
  * @version 01/15/2016
  */
-public class TaskConfiguration {
+public class TaskConfiguration implements Serializable {
     private String id;
     private int nodes;
     private int cores;

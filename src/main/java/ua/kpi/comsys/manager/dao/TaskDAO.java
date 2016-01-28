@@ -34,7 +34,7 @@ public class TaskDAO implements ITaskDAO {
         }
         String id = UUID.randomUUID().toString();
         task.setId(id);
-        task.setCreationDate(LocalDateTime.now());
+//        task.setCreationDate(LocalDateTime.now());
         task.setStatus(TaskStatus.SUBMITED);
         mongoOperations.save(task);
         LOGGER.info(String.format("Saved task with id=%s...", task.getId()));

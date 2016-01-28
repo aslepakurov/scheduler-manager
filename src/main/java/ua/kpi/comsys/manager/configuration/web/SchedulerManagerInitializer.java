@@ -17,7 +17,7 @@ import javax.servlet.ServletRegistration;
  * @author aslepakurov
  * @version 1/14/2016
  */
-public class SchedulerManagerInitializer implements WebApplicationInitializer{
+public class SchedulerManagerInitializer implements WebApplicationInitializer {
 
     public void onStartup(ServletContext container) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
