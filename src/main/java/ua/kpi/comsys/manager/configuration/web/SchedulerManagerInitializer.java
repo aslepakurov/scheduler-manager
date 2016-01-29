@@ -3,7 +3,7 @@ package ua.kpi.comsys.manager.configuration.web;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import ua.kpi.comsys.manager.configuration.spring.AppConfig;
+import ua.kpi.comsys.manager.configuration.spring.AppConfiguration;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -21,7 +21,7 @@ public class SchedulerManagerInitializer implements WebApplicationInitializer {
 
     public void onStartup(ServletContext container) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(AppConfig.class);
+        ctx.register(AppConfiguration.class);
         ctx.setServletContext(container);
         ServletRegistration.Dynamic servlet = container.addServlet(
                 "dispatcher", new DispatcherServlet(ctx));
