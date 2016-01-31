@@ -25,7 +25,7 @@ public class TaskQueueListener {
 
     @RabbitListener(queues = "taskQueue")
     public void processTaskQueue(TaskEvent taskEvent){
-        LOGGER.info("huraaaaaaa-"+taskEvent.getId());
+        LOGGER.info("Started processing event with id="+taskEvent.getId());
         taskService.updateStatus(taskEvent.getId(), TaskStatus.PROCESSING);
     }
 }

@@ -5,6 +5,9 @@ import ua.kpi.comsys.manager.domain.Task;
 import ua.kpi.comsys.manager.domain.TaskConfiguration;
 import ua.kpi.comsys.manager.domain.TaskConfigurationType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * TastRequestDto Class
  *
@@ -12,6 +15,7 @@ import ua.kpi.comsys.manager.domain.TaskConfigurationType;
  * @version 01/15/2016
  */
 public class TastRequestDto {
+    private String id;
     private String name;
     private String description;
 
@@ -38,6 +42,14 @@ public class TastRequestDto {
     private boolean exclusive;
 
     public TastRequestDto() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -204,49 +216,72 @@ public class TastRequestDto {
         Task task = new Task();
         TaskConfiguration configuration = new TaskConfiguration();
 
-        String taskName = taskDto.getName();
-        String taskDescription = taskDto.getDescription();
-        int taskGpu = taskDto.getGpu();
-        int taskNodes = taskDto.getNodes();
-        int taskCores = taskDto.getCores();
-        int taskSimulTasks = taskDto.getTasks();
-        String taskAccount = taskDto.getAccount();
-        String taskEmail = taskDto.getEmail();
-        String taskLogFilePath = taskDto.getLogFilePath();
-        String taskErrorFilePath = taskDto.getErrorFilePath();
-        String taskPreRunScript = taskDto.getPreRunScript();
-        String taskPostRunScript = taskDto.getPostRunScript();
-        String taskRequestType = taskDto.getRequestType();
-        int tasksPerNode = taskDto.getTasksPerNode();
-        String taskWalltime = taskDto.getWalltime();
-        boolean taskAbortedEmail = taskDto.isAbortedEmail();
-        boolean taskBeginEmail = taskDto.isBeginEmail();
-        boolean taskEndEmail = taskDto.isEndEmail();
-        boolean taskExclusive = taskDto.isExclusive();
+        configuration.setAccount(taskDto.getAccount());
+        configuration.setCores(taskDto.getCores());
+        configuration.setGpu(taskDto.getGpu());
+        configuration.setErrorFilePath(taskDto.getErrorFilePath());
+        configuration.setLogFilePath(taskDto.getLogFilePath());
+        configuration.setTasksPerNode(taskDto.getTasksPerNode());
+        configuration.setTasks(taskDto.getTasks());
+        configuration.setEmail(taskDto.getEmail());
+        configuration.setWalltime(taskDto.getWalltime());
+        configuration.setAbortedEmail(taskDto.isAbortedEmail());
+        configuration.setBeginEmail(taskDto.isBeginEmail());
+        configuration.setEndEmail(taskDto.isEndEmail());
+        configuration.setExclusive(taskDto.isExclusive());
+        configuration.setNodes(taskDto.getNodes());
 
-        configuration.setAccount(taskAccount);
-        configuration.setCores(taskCores);
-        configuration.setGpu(taskGpu);
-        configuration.setErrorFilePath(taskErrorFilePath);
-        configuration.setGpu(taskGpu);
-        configuration.setLogFilePath(taskLogFilePath);
-        configuration.setTasksPerNode(tasksPerNode);
-        configuration.setTasks(taskSimulTasks);
-        configuration.setEmail(taskEmail);
-        configuration.setWalltime(taskWalltime);
-        configuration.setAbortedEmail(taskAbortedEmail);
-        configuration.setBeginEmail(taskBeginEmail);
-        configuration.setEndEmail(taskEndEmail);
-        configuration.setExclusive(taskExclusive);
-        configuration.setNodes(taskNodes);
-
-        task.setName(taskName);
-        task.setDescription(taskDescription);
-        task.setPreRunScript(taskPreRunScript);
-        task.setPostRunScript(taskPostRunScript);
-        task.setType(TaskConfigurationType.getType(taskRequestType));
+        task.setName(taskDto.getName());
+        task.setDescription(taskDto.getDescription());
+        task.setPreRunScript(taskDto.getPreRunScript());
+        task.setPostRunScript(taskDto.getPostRunScript());
+        task.setType(TaskConfigurationType.getType(taskDto.getRequestType()));
         task.setConfiguration(configuration);
 
         return task;
+    }
+
+    public static TastRequestDto to(Task task) {
+        TastRequestDto dto = new TastRequestDto();
+        dto.setId(task.getId());
+        dto.setName(task.getName());
+        dto.setDescription(task.getDescription());
+        dto.setRequestType(task.getType().getName());
+        dto.setNodes(task.getConfiguration().getNodes());
+        dto.setCores(task.getConfiguration().getCores());
+        dto.setGpu(task.getConfiguration().getGpu());
+        dto.setTasks(task.getConfiguration().getTasks());
+        dto.setTasksPerNode(task.getConfiguration().getTasksPerNode());
+        dto.setWalltime(task.getConfiguration().getWalltime());
+        dto.setAccount(task.getConfiguration().getAccount());
+        dto.setEmail(task.getConfiguration().getEmail());
+        dto.setAbortedEmail(task.getConfiguration().isAbortedEmail());
+        dto.setBeginEmail(task.getConfiguration().isBeginEmail());
+        dto.setEndEmail(task.getConfiguration().isEndEmail());
+        dto.setLogFilePath(task.getConfiguration().getLogFilePath());
+        dto.setErrorFilePath(task.getConfiguration().getErrorFilePath());
+        dto.setExclusive(task.getConfiguration().isExclusive());
+        return dto;
+    }
+
+    public Map<String, Object> toMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("description", description);
+        map.put("nodes", nodes);
+        map.put("cores", cores);
+        map.put("gpu", gpu);
+        map.put("tasks", tasks);
+        map.put("tasksPerNode", tasksPerNode);
+        map.put("walltime", walltime);
+        map.put("account", account);
+        map.put("email", email);
+        map.put("abortedEmail", abortedEmail);
+        map.put("beginEmail", beginEmail);
+        map.put("endEmail", endEmail);
+        map.put("logFilePath", logFilePath);
+        map.put("errorFilePath", errorFilePath);
+        map.put("exclusive", exclusive);
+        return map;
     }
 }

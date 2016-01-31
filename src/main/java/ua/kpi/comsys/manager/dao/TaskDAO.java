@@ -37,12 +37,13 @@ public class TaskDAO implements ITaskDAO {
 //        task.setCreationDate(LocalDateTime.now());
         task.setStatus(TaskStatus.SUBMITED);
         mongoOperations.save(task);
-        LOGGER.info(String.format("Saved task with id=%s...", task.getId()));
+        LOGGER.info(String.format("Created task with id=%s...", task.getId()));
         return task;
     }
 
     @Override
     public void save(Task task) {
+        LOGGER.info(String.format("Saving task with id=%s", task.getId()));
         mongoOperations.save(task);
     }
 

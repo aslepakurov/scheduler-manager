@@ -4,7 +4,7 @@ import ua.kpi.comsys.manager.domain.Task;
 import ua.kpi.comsys.manager.domain.TaskStatus;
 
 /**
- * IExampleDAO Class
+ * ITaskDAO Class
  *
  * @author aslepakurov
  * @version 1/14/2016
