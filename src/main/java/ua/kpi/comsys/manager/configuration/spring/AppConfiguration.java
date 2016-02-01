@@ -1,5 +1,6 @@
 package ua.kpi.comsys.manager.configuration.spring;
 
+import org.apache.velocity.app.VelocityEngine;
 import org.springframework.context.annotation.*;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -19,8 +20,8 @@ import java.util.ResourceBundle;
 public class AppConfiguration {
 
     @Bean
-    public VelocityEngineFactoryBean velocityEngine(){
-        return new VelocityEngineFactoryBean();
+    public VelocityEngine velocityEngine(){
+        return new VelocityEngine();
     }
 
     @Bean
