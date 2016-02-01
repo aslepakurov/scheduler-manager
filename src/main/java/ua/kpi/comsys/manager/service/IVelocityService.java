@@ -1,6 +1,6 @@
 package ua.kpi.comsys.manager.service;
 
-import ua.kpi.comsys.manager.domain.dto.TastRequestDto;
+import ua.kpi.comsys.manager.domain.dto.TaskRequestDto;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -12,5 +12,5 @@ import java.lang.reflect.InvocationTargetException;
  */
 public interface IVelocityService {
     String FILE_EXTENSION = ".vm";
-    String getGeneratedConfiguration(TastRequestDto task) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException;
+    String getGeneratedConfiguration(TaskRequestDto task) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException;
 }

@@ -1,10 +1,13 @@
 package ua.kpi.comsys.manager.configuration.spring;
 
+import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.*;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -17,11 +20,11 @@ import java.util.ResourceBundle;
 @EnableWebMvc
 @Import({MongoConfiguration.class, RabbitMqConfiguration.class})
 @ComponentScan(basePackages = "ua.kpi.comsys.manager.*")
-public class AppConfiguration {
+public class AppConfiguration implements InitializingBean {
 
-    @Bean
-    public VelocityEngine velocityEngine(){
-        return new VelocityEngine();
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
     }
 
     @Bean

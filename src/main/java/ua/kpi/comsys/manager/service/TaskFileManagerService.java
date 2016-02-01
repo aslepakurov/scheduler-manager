@@ -16,7 +16,7 @@ import java.nio.file.StandardOpenOption;
  * @version 01/31/2016
  */
 @Component
-public class TaskManagerService implements ITaskManagerService {
+public class TaskFileManagerService implements ITaskFileManagerService {
     private String taskPath = "/tmp/manager";
 
     @Override

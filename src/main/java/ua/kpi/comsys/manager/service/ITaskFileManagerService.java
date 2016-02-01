@@ -8,7 +8,7 @@ import java.io.IOException;
  * @author aslepakurov
  * @version 01/31/2016
  */
-public interface ITaskManagerService {
+public interface ITaskFileManagerService {
     String GENERATED_FILE = "generated";
     String SCRIPT = "script";
     String PRE_SCRIPT = "prescript";

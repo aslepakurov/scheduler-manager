@@ -14,7 +14,7 @@ import java.util.Map;
  * @author aslepakurov
  * @version 01/15/2016
  */
-public class TastRequestDto {
+public class TaskRequestDto {
     private String id;
     private String name;
     private String description;
@@ -41,7 +41,7 @@ public class TastRequestDto {
     private String errorFilePath;
     private boolean exclusive;
 
-    public TastRequestDto() {
+    public TaskRequestDto() {
     }
 
     public String getId() {
@@ -212,7 +212,7 @@ public class TastRequestDto {
         this.requestType = requestType;
     }
 
-    public static Task from(TastRequestDto taskDto) {
+    public static Task from(TaskRequestDto taskDto) {
         Task task = new Task();
         TaskConfiguration configuration = new TaskConfiguration();
 
@@ -241,8 +241,8 @@ public class TastRequestDto {
         return task;
     }
 
-    public static TastRequestDto to(Task task) {
-        TastRequestDto dto = new TastRequestDto();
+    public static TaskRequestDto to(Task task) {
+        TaskRequestDto dto = new TaskRequestDto();
         dto.setId(task.getId());
         dto.setName(task.getName());
         dto.setDescription(task.getDescription());
@@ -266,6 +266,7 @@ public class TastRequestDto {
 
     public Map<String, Object> toMap(){
         Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
         map.put("name", name);
         map.put("description", description);
         map.put("nodes", nodes);

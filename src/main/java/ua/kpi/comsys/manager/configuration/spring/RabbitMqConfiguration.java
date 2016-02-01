@@ -29,7 +29,7 @@ public class RabbitMqConfiguration {
 
     @Bean
     public Queue taskQueue() {
-        return new Queue("taskQueue");
+        return new Queue("taskQueue", false, false, false);
     }
 
     @Bean
