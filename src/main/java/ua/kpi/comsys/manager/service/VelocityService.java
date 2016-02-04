@@ -2,13 +2,20 @@ package ua.kpi.comsys.manager.service;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
+import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
+import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.velocity.VelocityEngineFactoryBean;
+import ua.kpi.comsys.manager.configuration.spring.AppConfiguration;
 import ua.kpi.comsys.manager.domain.dto.TaskRequestDto;
 
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Properties;
 
 /**
  * VelocityService Class
@@ -19,24 +26,23 @@ import java.util.Properties;
 @Component
 public class VelocityService implements IVelocityService {
 
+    @Autowired
+    private VelocityEngine velocityEngine;
+
     @Override
     public String getGeneratedConfiguration(TaskRequestDto taskDto) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Properties properties = new Properties();
-//        properties.setProperty("resource.loader", "webapp");
-//        properties.setProperty("resource.loader", "class");
-        properties.setProperty("resource.loader", "file");
-//        properties.setProperty("class.resource.loader.class", "org.apache.velocity.tools.view.WebappResourceLoader");
-//        properties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        properties.setProperty("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-        properties.setProperty("class.resource.loader.path", "/tmp/template");
-        properties.setProperty("class.resource.loader.cache", "false");
-        properties.setProperty("runtime.log", "/tmp/velocity.log");
-        Velocity.init(properties);
-//        Template template = Velocity.getTemplate(taskDto.getRequestType() + FILE_EXTENSION);
-        Template template = Velocity.getTemplate("pbs.vm");
-        VelocityContext velocityContext = new VelocityContext(taskDto.toMap());
-        StringWriter sw = new StringWriter();
-        template.merge(velocityContext,  sw);
-        return sw.toString();
+        VelocityContext velocityContext = new VelocityContext();
+        velocityContext.put("id", "1");
+        return writeContextToTemplate("template/pbs.vm", velocityContext);
     }
+
+    protected String writeContextToTemplate(String templateLocation, VelocityContext context) {
+        String body;
+        Template t = velocityEngine.getTemplate(templateLocation);
+        StringWriter writer = new StringWriter();
+        t.merge(context, writer);
+        body = writer.toString();
+        return body;
+    }
+
 }

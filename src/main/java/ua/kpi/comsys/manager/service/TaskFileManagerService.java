@@ -17,6 +17,7 @@ import java.nio.file.StandardOpenOption;
  */
 @Component
 public class TaskFileManagerService implements ITaskFileManagerService {
+    //temp
     private String taskPath = "/tmp/manager";
 
     @Override
@@ -44,7 +45,7 @@ public class TaskFileManagerService implements ITaskFileManagerService {
     }
 
     private void saveFile(String text, File file, String message, Path path) throws IOException {
-        if (!file.exists() && !file.mkdirs()) {
+        if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
             throw new IOException(message);
         }
         Files.write(path, text.getBytes(), StandardOpenOption.CREATE);
@@ -53,22 +54,26 @@ public class TaskFileManagerService implements ITaskFileManagerService {
 
     @Override
     public String getTaskGeneratedFile(String id) {
-        return Joiner.on(File.separator).join(taskPath, id, GENERATED_FILE);
+        return getJoin(id, GENERATED_FILE);
     }
 
     @Override
     public String getTaskScriptFile(String id) {
-        return Joiner.on(File.separator).join(taskPath, id, SCRIPT);
+        return getJoin(id, SCRIPT);
     }
 
     @Override
     public String getTaskPreScriptFile(String id) {
-        return Joiner.on(File.separator).join(taskPath, id, PRE_SCRIPT);
+        return getJoin(id, PRE_SCRIPT);
     }
 
     @Override
     public String getTaskPostScriptFile(String id) {
-        return Joiner.on(File.separator).join(taskPath, id, POST_SCRIPT);
+        return getJoin(id, POST_SCRIPT);
+    }
+
+    private String getJoin(String id, String postScript) {
+        return Joiner.on(File.separator).join(taskPath, id, postScript);
     }
 
 
