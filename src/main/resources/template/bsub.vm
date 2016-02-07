@@ -1,0 +1,16 @@
+#!/bin/tcsh
+#BSUB -P $name                      # your project code, such as UUOM4321 or P87654321
+#BSUB -J $name                      # job name
+#BSUB -a poe                        # set parallel operating environment
+#BSUB -W $walltime                  # wall-clock time (hrs:mins)
+#BSUB -n 1                          # request one slot for this job
+#BSUB -q regular                    # queue
+#BSUB -o $logFilePath               # output file name in which %J is replaced by the job ID
+#BSUB -e $errorFilePath             # error file name in which %J is replaced by the job ID
+#BSUB -R "span[ptile=$tasksPerNode]"# run 2 MPI tasks per node
+
+# request number of job threads up to and including 16
+export OMP_NUM_THREADS=4
+export MP_TASK_AFFINITY=verbose,granularity=core
+
+./script

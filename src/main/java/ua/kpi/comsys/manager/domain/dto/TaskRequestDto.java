@@ -264,7 +264,7 @@ public class TaskRequestDto {
         return dto;
     }
 
-    public Map<String, Object> toMap(){
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("name", name);
@@ -277,9 +277,7 @@ public class TaskRequestDto {
         map.put("walltime", walltime);
         map.put("account", account);
         map.put("email", email);
-        map.put("abortedEmail", abortedEmail);
-        map.put("beginEmail", beginEmail);
-        map.put("endEmail", endEmail);
+        map.put("emailMode", (abortedEmail ? "a" : "") + (beginEmail ? "b" : "") + (endEmail ? "e" : ""));
         map.put("logFilePath", logFilePath);
         map.put("errorFilePath", errorFilePath);
         map.put("exclusive", exclusive);

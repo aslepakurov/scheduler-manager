@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH -o $logFilePath
+
+
+#SBATCH -J $name
+#SBATCH --get-user-env
+#SBATCH --clusters=$nodes
+#SBATCH --nodes=$nodes-$tasksPerNode
+#SBATCH --cpus-per-task=$cores
+
+#SBATCH --mail-type=$emailMode
+#SBATCH --mail-user=$email
+#SBATCH --export=NONE
+#SBATCH --time=$walltime
+
+source /etc/profile.d/modules.sh
+cd mydir
+export OMP_NUM_THREADS=28
+
+./script

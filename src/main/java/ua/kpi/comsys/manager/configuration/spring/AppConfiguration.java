@@ -1,6 +1,5 @@
 package ua.kpi.comsys.manager.configuration.spring;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.*;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
